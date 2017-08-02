@@ -237,7 +237,7 @@ grafana_log_mode: console, file
 grafana_log_buffer_len: 10000
 
 # Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
-grafana_log_level: Trace
+grafana_log_level: Info
 
 grafana_log:
   mode: "{{ grafana_log_mode }}"
@@ -288,6 +288,19 @@ grafana_event_publisher:
   rabbitmq_url: "{{ grafana_event_publisher_rabbitmq_url }}"
   exchange: "{{ grafana_event_publisher_exchange }}"
 
+grafana_smtp:
+  enabled: "false"
+  host: "localhost:25"
+  from_address: "admin@grafana.localhost"
+  from_name: "Grafana"
+
+grafana_emails:
+  welcome_email_on_sign_up: "false"
+  templates_pattern: "emails/*.html"
+
+grafana_alerting:
+  enabled: "true"
+  execute_alerts: "true"
 
 grafana_config:
   app_mode: "{{ grafana_app_mode }}"
@@ -305,7 +318,9 @@ grafana_config:
   log.console: "{{ grafana_log__console }}"
   log.file: "{{ grafana_log__file }}"
   event_publisher: "{{ grafana_event_publisher }}"
-
+  smtp: "{{ grafana_smtp }}"
+  emails: "{{grafana_emails}}"
+  alerting: "{{grafana_alerting}}"
 
 # Api parameters
 grafana_api_url:          http://127.0.0.1:3000
